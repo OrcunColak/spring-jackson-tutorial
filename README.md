@@ -1,3 +1,21 @@
+#  Centralized  Configuration Example
+See https://towardsdev.com/escaping-the-objectmapper-hell-clean-modern-json-handling-in-java-without-losing-your-mind-d1b35f5809a6
+
+```java
+@Configuration
+public class JacksonConfig {
+    @Bean
+    public ObjectMapper objectMapper() {
+        return new ObjectMapper()
+            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+            .setSerializationInclusion(JsonInclude.Include.NON_NULL)
+            .setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE)
+            .registerModule(new JavaTimeModule())
+            .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+    }
+}
+```
+
 # Content Negotiation
 
 The original idea is from  

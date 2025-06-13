@@ -15,6 +15,31 @@ public class JacksonConfig {
     }
 }
 ```
+# Jackson Afterburner
+This speeds up reflection-heavy conversions and reduces temporary object churn.
+```xml
+<dependency>
+  <groupId>com.fasterxml.jackson.module</groupId>
+  <artifactId>jackson-module-afterburner</artifactId>
+</dependency>
+```
+then
+```
+@Bean
+public ObjectMapper objectMapper() {
+    return new ObjectMapper()
+        .registerModule(new AfterburnerModule())
+        // other custom config...
+        ;
+}
+```
+or
+```
+import com.fasterxml.jackson.module.afterburner.AfterburnerModule;
+
+ObjectMapper mapper = new ObjectMapper();
+mapper.registerModule(new AfterburnerModule());
+```
 
 # Content Negotiation
 

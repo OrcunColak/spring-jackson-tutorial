@@ -15,6 +15,30 @@ public class JacksonConfig {
     }
 }
 ```
+# Jackson Blackbird
+Jackson Blackbird is a high-performance module for the Jackson JSON library.
+It’s similar in spirit to the older Afterburner module, but designed to be faster and safer on modern JVMs (Java 11+).
+
+Instead of using plain reflection, it uses the JDK’s LambdaMetafactory to generate optimized accessors.
+That means JSON serialization and deserialization can be 30–40% faster and memory usage lower compared to plain Jackson databind.
+```xml
+<dependency>
+  <groupId>com.fasterxml.jackson.module</groupId>
+  <artifactId>jackson-module-blackbird</artifactId>
+  <version>2.x.x</version>
+</dependency>
+```
+Example
+```java
+ObjectMapper mapper = new ObjectMapper();
+mapper.registerModule(new BlackbirdModule());
+
+// or since Jackson 2.12+
+JsonMapper mapper = JsonMapper.builder()
+    .addModule(new BlackbirdModule())
+    .build();
+
+```
 # Jackson Afterburner
 This speeds up reflection-heavy conversions and reduces temporary object churn.
 ```xml
